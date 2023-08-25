@@ -57,8 +57,8 @@ class SaleOrder(models.Model):
                     ).sale_type
                 )
             # Buscar el sale_type del user
-            if not sale_type:
-                sale_type = record.user.partner_id.with_company(record.company_id).sale_type
+            if not sale_type and record.user_id:
+                sale_type = record.user_id.partner_id.with_company(record.company_id).sale_type
             # Default user sale type value
             if not sale_type:
                 sale_type = record.default_get(["type_id"]).get("type_id", False)
